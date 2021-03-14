@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.9)
 
 project(ap_int_test)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Include everything in dependencies
@@ -56,3 +56,36 @@ add_subdirectory(
   ${GTEST_BUILD_DIR}
   EXCLUDE_FROM_ALL
   )
+
+#
+# AP library dependency
+#
+
+# Path to AP directories
+set(AP_DIR ${DEPS_EX_DIR}/ap)
+set(AP_DL_DIR ${AP_DIR}/download)
+set(AP_SRC_DIR ${AP_DIR}/ap)
+
+# Download and unpack ap at configure time
+configure_file(CMakeLists_ap.txt ${AP_DL_DIR}/CMakeLists.txt)
+
+execute_process(
+  COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+  RESULT_VARIABLE result
+  WORKING_DIRECTORY ${AP_DL_DIR}
+  )
+if(result)
+  message(FATAL_ERROR "CMake step for ap failed: ${result}")
+endif()
+
+execute_process(
+  COMMAND ${CMAKE_COMMAND} --build .
+  RESULT_VARIABLE result
+  WORKING_DIRECTORY ${AP_DL_DIR}
+  )
+if(result)
+  message(FATAL_ERROR "Build step for ap failed: ${result}")
+endif()
+
+# Find all AP .cpp files
+file(GLOB_RECURSE AP_CPP ${AP_SRC_DIR}/*.cpp)

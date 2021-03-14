@@ -9,6 +9,7 @@
 # Build system - CMake
 !CMakeLists.txt
 !CMakeLists_gtest.txt
+!CMakeLists_ap.txt
 
 # Dependencies - any third-party sources or binaries
 !deps
