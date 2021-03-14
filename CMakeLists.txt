@@ -27,7 +27,7 @@ execute_process(
   COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
   RESULT_VARIABLE result
   WORKING_DIRECTORY ${GTEST_DL_DIR}
-  )
+)
 if(result)
   message(FATAL_ERROR "CMake step for googletest failed: ${result}")
 endif()
@@ -36,7 +36,7 @@ execute_process(
   COMMAND ${CMAKE_COMMAND} --build .
   RESULT_VARIABLE result
   WORKING_DIRECTORY ${GTEST_DL_DIR}
-  )
+)
 if(result)
   message(FATAL_ERROR "Build step for googletest failed: ${result}")
 endif()
@@ -51,7 +51,7 @@ add_subdirectory(
   ${GTEST_SRC_DIR}
   ${GTEST_BUILD_DIR}
   EXCLUDE_FROM_ALL
-  )
+)
 
 # Add include path
 include_directories(${GTEST_SRC_DIR}/googletest/include)
@@ -72,7 +72,7 @@ execute_process(
   COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
   RESULT_VARIABLE result
   WORKING_DIRECTORY ${AP_DL_DIR}
-  )
+)
 if(result)
   message(FATAL_ERROR "CMake step for ap failed: ${result}")
 endif()
@@ -81,7 +81,7 @@ execute_process(
   COMMAND ${CMAKE_COMMAND} --build .
   RESULT_VARIABLE result
   WORKING_DIRECTORY ${AP_DL_DIR}
-  )
+)
 if(result)
   message(FATAL_ERROR "Build step for ap failed: ${result}")
 endif()
