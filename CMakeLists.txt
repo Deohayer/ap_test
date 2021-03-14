@@ -9,10 +9,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(DEPS_DIR ${CMAKE_CURRENT_BINARY_DIR}/../deps)
 set(DEPS_EX_DIR ${DEPS_DIR}/external)
 set(DEPS_IN_DIR ${DEPS_DIR}/internal)
-include_directories(
-  ${DEPS_IN_DIR}
-  ${DEPS_EX_DIR}
-  )
 
 #
 # Google Test dependency
@@ -57,6 +53,9 @@ add_subdirectory(
   EXCLUDE_FROM_ALL
   )
 
+# Add include path
+include_directories(${GTEST_SRC_DIR}/googletest/include)
+
 #
 # AP library dependency
 #
@@ -87,5 +86,15 @@ if(result)
   message(FATAL_ERROR "Build step for ap failed: ${result}")
 endif()
 
-# Find all AP .cpp files
-file(GLOB_RECURSE AP_CPP ${AP_SRC_DIR}/*.cpp)
+# Add include path
+include_directories(${AP_DIR})
+
+#
+# Boost dependency
+#
+
+# Path to Boost directory
+set(BOOST_DIR ${DEPS_IN_DIR}/boost)
+
+# Add include path
+include_directories(${BOOST_DIR})
