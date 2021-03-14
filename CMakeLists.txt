@@ -6,14 +6,20 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Include everything in dependencies
-include_directories(deps/external deps/internal)
+set(DEPS_DIR ${CMAKE_CURRENT_BINARY_DIR}/../deps)
+set(DEPS_EX_DIR ${DEPS_DIR}/external)
+set(DEPS_IN_DIR ${DEPS_DIR}/internal)
+include_directories(
+  ${DEPS_IN_DIR}
+  ${DEPS_EX_DIR}
+  )
 
 #
 # Google Test dependency
 #
 
 # Path to Google Test directories
-set(GTEST_DIR ${CMAKE_CURRENT_BINARY_DIR}/../deps/external/gtest)
+set(GTEST_DIR ${DEPS_EX_DIR}/gtest)
 set(GTEST_DL_DIR ${GTEST_DIR}/download)
 set(GTEST_SRC_DIR ${GTEST_DIR}/src)
 set(GTEST_BUILD_DIR ${GTEST_DIR}/build)
