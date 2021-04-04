@@ -3,23 +3,26 @@
 
 # Track the following:
 
-# This file
+# This file.
 !.gitignore
 
-# Build system - CMake
+# README.
+!README.md
+
+# Build system - CMake.
 !CMakeLists.txt
 !CMakeLists_gtest.txt
 !CMakeLists_ap.txt
 
-# Dependencies - any third-party sources or binaries
+# Dependencies - any third-party sources or binaries.
 !deps
-# Internal - dependencies that added manually to the project
+# Internal - dependencies that added manually to the project.
 !deps/internal
 !deps/internal/**
-# External - dependencies that are downloaded by CMake
-# They shall not be under version control
+# External - dependencies that are downloaded by CMake.
+# They must not be under version control.
 #/deps/external
 
-# Project sources and headers
+# Project sources and headers.
 !src
 !src/**
