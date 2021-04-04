@@ -5,6 +5,8 @@ project(ap_int_test)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+enable_testing()
+
 # Include everything in dependencies
 set(DEPS_DIR ${CMAKE_CURRENT_BINARY_DIR}/../deps)
 set(DEPS_EX_DIR ${DEPS_DIR}/external)
@@ -98,3 +100,16 @@ set(BOOST_DIR ${DEPS_IN_DIR}/boost)
 
 # Add include path
 include_directories(${BOOST_DIR})
+
+#
+# ap_test
+#
+
+# Path to ap_test source directory
+set(AP_TEST_SRC_DIR ${CMAKE_CURRENT_BINARY_DIR}/../src)
+
+# Validation subproject
+set(VALIDATION_SRC_DIR ${AP_TEST_SRC_DIR}/validation)
+set(VALIDATION_SRC_FILES ${VALIDATION_SRC_DIR}/validate.cpp)
+add_executable(ap_validate ${VALIDATION_SRC_FILES})
+target_link_libraries(ap_validate gtest_main)
