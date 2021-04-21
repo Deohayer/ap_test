@@ -1,10 +1,11 @@
 #include "int_builder.hpp"
 #include <limits>
+#include <iostream>
 
 int_builder::int_builder()
     : dbase(digit_base::dec),
       dcase(digit_case::lower),
-      is_prefixed(false),
+      is_prefixed(true),
       is_negative(false),
       generator(1, std::numeric_limits<unsigned int>::max())
 {
@@ -13,7 +14,7 @@ int_builder::int_builder()
 int_builder::int_builder(unsigned int min_digits, unsigned int max_digits, bool is_negative)
     : dbase(digit_base::dec),
       dcase(digit_case::lower),
-      is_prefixed(false),
+      is_prefixed(true),
       is_negative(is_negative),
       generator(min_digits, max_digits)
 {

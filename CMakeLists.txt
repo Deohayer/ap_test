@@ -91,6 +91,9 @@ endif()
 # Add include path
 include_directories(${AP_DIR})
 
+file(GLOB_RECURSE AP_SRC 
+"${AP_DIR}/*.cpp")
+
 #
 # Boost dependency
 #
@@ -107,12 +110,18 @@ include_directories(${BOOST_DIR})
 
 # Path to ap_test source directory
 set(AP_TEST_SRC_DIR ${CMAKE_CURRENT_BINARY_DIR}/../src)
-set(UTILS_SRC_FILES
-${AP_TEST_SRC_DIR}/utils/digit.cpp
-${AP_TEST_SRC_DIR}/utils/int_builder.cpp)
+
+# Common files
+set(COMMON_SRC_FILES
+${AP_TEST_SRC_DIR}/common/digit.cpp
+${AP_TEST_SRC_DIR}/common/int_builder.cpp)
 
 # Validation subproject
 set(VALIDATION_SRC_DIR ${AP_TEST_SRC_DIR}/validation)
-set(VALIDATION_SRC_FILES ${UTILS_SRC_FILES} ${VALIDATION_SRC_DIR}/validate.cpp)
+set(VALIDATION_SRC_FILES
+${COMMON_SRC_FILES} 
+${VALIDATION_SRC_DIR}/validate.cpp
+${AP_SRC})
+
 add_executable(ap_validate ${VALIDATION_SRC_FILES})
 target_link_libraries(ap_validate gtest_main)

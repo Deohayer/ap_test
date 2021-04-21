@@ -8,7 +8,7 @@ char get_digit(digit_base dbase, digit_case dcase)
     static const rng<int> index_generator{0, int(charset.size())};
     int indent = (dcase != digit_case::upper) ? 0 : (charset.size() / 2);
     int wrap = (dcase == digit_case::mixed) ? charset.size() : int(dbase);
-    std::cout << wrap << '\n';
+    //std::cout << wrap << '\n';
     return charset[index_generator.get() % wrap + indent];
 }
 
