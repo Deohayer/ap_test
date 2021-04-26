@@ -4,6 +4,7 @@ project(ap_int_test)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_BUILD_TYPE Release)
 
 enable_testing()
 
@@ -95,6 +96,39 @@ file(GLOB_RECURSE AP_SRC
 "${AP_DIR}/*.cpp")
 
 #
+# time_metric library dependency
+#
+
+# Path to time_metric directories
+set(TIME_DIR ${DEPS_EX_DIR}/time_metric)
+set(TIME_DL_DIR ${TIME_DIR}/download)
+set(TIME_SRC_DIR ${TIME_DIR}/time_metric)
+
+# Download and unpack time at configure time
+configure_file(CMakeLists_time.txt ${TIME_DL_DIR}/CMakeLists.txt)
+
+execute_process(
+  COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+  RESULT_VARIABLE result
+  WORKING_DIRECTORY ${TIME_DL_DIR}
+)
+if(result)
+  message(FATAL_ERROR "CMake step for time failed: ${result}")
+endif()
+
+execute_process(
+  COMMAND ${CMAKE_COMMAND} --build .
+  RESULT_VARIABLE result
+  WORKING_DIRECTORY ${TIME_DL_DIR}
+)
+if(result)
+  message(FATAL_ERROR "Build step for time failed: ${result}")
+endif()
+
+# Add include path
+include_directories(${TIME_DIR})
+
+#
 # Boost dependency
 #
 
@@ -125,3 +159,22 @@ ${AP_SRC})
 
 add_executable(ap_validate ${VALIDATION_SRC_FILES})
 target_link_libraries(ap_validate gtest_main)
+
+# Measurement subproject
+set(MEASUREMENT_SRC_DIR ${AP_TEST_SRC_DIR}/measurement)
+set(MEASUREMENT_SRC_FILES
+${COMMON_SRC_FILES} 
+${MEASUREMENT_SRC_DIR}/measure.cpp
+${AP_SRC})
+
+add_executable(ap_measure ${MEASUREMENT_SRC_FILES})
+target_link_libraries(ap_measure gtest_main)
+
+# Sandbox subproject
+set(SANDBOX_SRC_DIR ${AP_TEST_SRC_DIR}/sandbox)
+set(SANDBOX_SRC_FILES
+${COMMON_SRC_FILES} 
+${SANDBOX_SRC_DIR}/sandbox.cpp
+${AP_SRC})
+
+add_executable(ap_sandbox ${SANDBOX_SRC_FILES})

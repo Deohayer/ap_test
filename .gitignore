@@ -13,6 +13,7 @@
 !CMakeLists.txt
 !CMakeLists_gtest.txt
 !CMakeLists_ap.txt
+!CMakeLists_time.txt
 
 # Dependencies - any third-party sources or binaries.
 !deps
